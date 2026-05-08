@@ -19,7 +19,7 @@ pipeline {
             }
         }
 
-        stage('Build & Test') {
+        stage('Build and Test') {
             steps {
                 sh '''
                     python3 -m venv venv
@@ -72,14 +72,21 @@ pipeline {
                 """
             }
         }
+
     }
 
- post {
-        success { echo "✅ Pipeline completed successfully!" }
-        failure { echo "❌ Pipeline failed — check logs." }
+    post {
+        success {
+            echo "Pipeline completed successfully!"
+        }
+        failure {
+            echo "Pipeline failed — check logs."
+        }
         always {
             node('built-in') {
                 sh 'docker logout || true'
             }
         }
     }
+
+}
