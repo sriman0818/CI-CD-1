@@ -1,5 +1,13 @@
-def add(a, b):
-    return a + b
+from flask import Flask
+app = Flask(__name__)
 
-if __name__ == "__main__":
-    print("Hello CI/CD with SonarQube & Docker!")
+@app.route('/')
+def home():
+    return "Hello from CI/CD Pipeline!"
+
+@app.route('/health')
+def health():
+    return {"status": "ok"}, 200
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
