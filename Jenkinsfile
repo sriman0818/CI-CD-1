@@ -74,9 +74,12 @@ pipeline {
         }
     }
 
-    post {
+ post {
         success { echo "✅ Pipeline completed successfully!" }
         failure { echo "❌ Pipeline failed — check logs." }
-        always  { sh 'docker logout || true' }
+        always {
+            node('built-in') {
+                sh 'docker logout || true'
+            }
+        }
     }
-}
